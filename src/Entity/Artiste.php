@@ -62,7 +62,7 @@ class Artiste
     private $movies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="realistor")
+     * @ORM\OneToMany(targetEntity=Movie::class, mappedBy="realisator")
      */
     private $moviesAsReal;
 

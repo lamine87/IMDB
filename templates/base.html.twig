@@ -14,21 +14,25 @@
         {% endblock %}
     </head>
     <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">IMDB</a>
+        <a class="navbar-brand" href="{{ path('home') }}">IMDB</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Artistes</a>
+            <a class="nav-link" aria-current="page" href="{{ path('front_artistes') }}">Artistes</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Films</a>
+            <a class="nav-link" href="{{ path('front_movies') }}">Films</a>
             </li>
-        
+        </ul>
+        <ul class="navbar-nav me-0 mb-2 mb-lg-0">
+            <li class="nav-item">
+             {{ render(controller('App\\Controller\\FrontController::searchBar')) }}
+            </li>
         </ul>
         
         </div>

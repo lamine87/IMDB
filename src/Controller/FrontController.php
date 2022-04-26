@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Movie;
+use App\Entity\Search;
+use App\Form\SearchType;
 use App\Repository\MovieRepository;
 use App\Repository\ArtisteRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -25,13 +28,17 @@ class FrontController extends AbstractController
             'controller_name' => $nom,
         ]);
     }
+
+    /**
+     * @Route("/", name="home")
+     */
     public function home(ArtisteRepository $artisteRepository, MovieRepository $movieRepository): Response
     {
 
         $artistes = $artisteRepository->findLastFive();
-        $movies = $movieRepository->findfindLastFive();
+        $movies = $movieRepository->findLastFive();
 
-        return $this->render('front/.home.html.twig', [
+        return $this->render('front/home.html.twig', [
             'artistes' => $artistes,
             'movies' => $movies
         ]);
@@ -71,5 +78,41 @@ class FrontController extends AbstractController
         return $this->render('front/artistes.html.twig',[
             'pagination' => $pagination
         ]);
+    }
+     /**
+     * @Route("/movie/{id}", name="front_movie")
+     */
+    public function frontMovie(Movie $movie)
+    {
+        return $this->render('front/movie.html.twig',[
+            'movie' => $movie
+        ]);
+    }
+     /**
+     * @Route("/artiste/{id}", name="front_artiste")
+     */
+    public function frontArtiste($id, ArtisteRepository $artisteRepository)
+    {
+       $artiste = $artisteRepository->findOneBy(['id'=>$id]);
+       return $this->render('front/artiste.html.twig',[
+        'artiste' => $artiste
+    ]);  
+    }
+    public function searchBar()
+    {
+        $search = new Search;
+        $form = $this->createForm(SearchType::class, $search, [
+            'action' => $this->generateUrl('front_search')
+        ]);
+        return $this->renderForm('front/searchbar.html.twig',[
+            'form' =>$form
+        ]);
+    }
+    /**
+     * @Route("/search", name="front_search")
+     */
+    public function search(Request $request)
+    {
+        dd($request->query->get('search')['search']);
     }
 }
