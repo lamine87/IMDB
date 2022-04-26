@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2 class="py-5"> Nos Artistes</h2>
+
+<div class="count">
+    Nombre d'artistes : {{ pagination.getTotalItemCount }}
+</div>
+
+
+ <div class="d-flex flex-wrap justify-content-between">
+    {% for artiste in pagination %}  
+
+       <div>
+        <img src="{{asset('images/artiste/' ~ artiste.imageName) | imagine_filter('poster')}}" alt="">
+        <p> {{ artiste.firstName }} {{ artiste.lastName }}</p>  
+         </div>
+       {% endfor %}
+    </div>
+
+    
+ <div class="navigation">
+
+         {{ knp_pagination_render(pagination) }}
+     
+    </div>
+
+{% endblock %}

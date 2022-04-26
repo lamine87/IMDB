@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2 class="py-5"> Nos Films</h2>
+
+<div class="count">
+    Nombre de Films : {{ pagination.getTotalItemCount }}
+</div>
+
+
+ <div class="d-flex flex-wrap justify-content-between">
+    {% for movie in pagination %}  
+   
+       <div>
+        <img src="{{asset('images/movies/' ~ movie.imageName) | imagine_filter('poster')}}" alt="">
+        <p> {{ movie.title }} </p>
+         </div>
+       {% endfor %}
+    </div>
+
+    
+ <div class="navigation">
+
+         {{ knp_pagination_render(pagination) }}
+     
+    </div>
+
+{% endblock %}
